@@ -4,7 +4,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import java.util.*;
 
 public class Main extends Application{
 
@@ -16,7 +15,7 @@ public class Main extends Application{
     public void start(Stage primaryStage) {
         // VBox as the root
         VBox root = new VBox();
-        root.setPrefSize(599, 750);
+        root.setPrefSize(599, 800);
 
         // AnchorPane inside VBox
         AnchorPane anchorPane = new AnchorPane();
@@ -56,7 +55,18 @@ public class Main extends Application{
         button_Genetics.setLayoutX(385);
         button_Genetics.setLayoutY(49);
         button_Genetics.setOnAction(e -> {
-            n = Integer.parseInt(textField_n.getText());
+            try {
+                n = Integer.parseInt(textField_n.getText());
+                if(n < 4 || n > 20) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Input!(The number must be between 4 and 20)", ButtonType.OK);
+                    alert.showAndWait();
+                    n = 0;
+                }
+            }catch(Exception er){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Input!(must be a number)", ButtonType.OK);
+                alert.showAndWait();
+                n = 0;
+            }
             int[] result = genetics.runGenetics(n);
             resultGrid = new char[n][n];
             for(int i = 0; i < n; i++){
@@ -99,7 +109,19 @@ public class Main extends Application{
         button_BackTracking.setLayoutY(49);
         button_BackTracking.setOnAction(e -> {
 
-            n = Integer.parseInt(textField_n.getText());
+            try {
+                n = Integer.parseInt(textField_n.getText());
+                if(n < 4 || n > 20) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Input!(The number must be between 4 and 20)", ButtonType.OK);
+                    alert.showAndWait();
+                    n = 0;
+                }
+            }catch(Exception er){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Input!(must be a number)", ButtonType.OK);
+                alert.showAndWait();
+                n = 0;
+            }
+
             int[] result = backTracking.runBackTracking(n);
             resultGrid = new char[n][n];
             for(int i = 0; i < n; i++){
